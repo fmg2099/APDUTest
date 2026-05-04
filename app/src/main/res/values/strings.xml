@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">PruebasNFC-Apdu</string>
+    <string name="no_hce">Este dispositivo no soporta HCE</string>
+    <string name="no_nfc">Este dispositivo no soporta NFC</string>
+
+
+</resources>

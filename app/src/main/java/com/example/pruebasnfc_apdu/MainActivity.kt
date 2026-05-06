@@ -9,7 +9,10 @@ import androidx.core.view.WindowInsetsCompat
 import android.content.pm.PackageManager
 import android.nfc.NfcAdapter
 import android.nfc.cardemulation.HostApduService
+import android.os.Vibrator
+import android.os.VibratorManager
 import android.util.Log
+import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 
@@ -20,7 +23,7 @@ const val TAG = "APDU"
 //debe registrarse en el androidmanifest
 class MyHostAPDUService : HostApduService() {
     override fun onDeactivated(reason: Int) {
-        //TODO("Not yet implemented")
+        Log.d(TAG, "onDeactivated reason="+ reason.toString())
     }
 
     //llamado cuando el dispositivo detecta un nuevo dispositivo NFC
@@ -28,11 +31,29 @@ class MyHostAPDUService : HostApduService() {
         commandApdu: ByteArray?,
         extras: Bundle?
     ): ByteArray? {
-        Log.d(TAG, "processCommandApdu")
 
-        // Return a "Success" response (0x9000 in APDU language)
-        return byteArrayOf(0x90.toByte(), 0x00.toByte())
+        if (commandApdu == null) {
+            Log.d(TAG, "processCommandApdu null, returning 6F 00")
+            //el estándar pide que se anunce error "no precise diagnosis"
+            return byteArrayOf(0x6F.toByte(), 0x00.toByte())
+        }
+        Log.d("APDU", "APDU IN: ${commandApdu.joinToString(" ") { "%02X".format(it) }}")
 
+        //TODO revisar que el comando sea para nuestra app, por el momento simplemente responder
+        val vibrator = getSystemService(VIBRATOR_SERVICE) as Vibrator
+        vibrator.vibrate(100)
+
+
+        // Return a "Success" response (0x9000 in APDU language) plus DEADCAFE bytes
+        val response = byteArrayOf(
+
+            0xDE.toByte(),
+            0xAD.toByte(),
+            0xCA.toByte(),
+            0xFE.toByte(),
+            0x90.toByte(),
+            0x00.toByte())
+        return response
     }
 
 }
@@ -67,7 +88,12 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-
+        //pruebas de boton
+        val buttonAction = findViewById<Button>(R.id.buttonAction)
+        buttonAction.setOnClickListener {
+            Toast.makeText(this, "Boton pulsado", Toast.LENGTH_SHORT).show()
+            Log.d(TAG, "Boton pulsado")
+        }
 
 
 

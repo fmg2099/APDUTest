@@ -2,6 +2,7 @@
     <string name="app_name">PruebasNFC-Apdu</string>
     <string name="no_hce">Este dispositivo no soporta HCE</string>
     <string name="no_nfc">Este dispositivo no soporta NFC</string>
-
+    <string name="host_apdu_service_description">APDU Service de pruebas</string>
+    <string name="aid_description">AID de pruebas</string>
 
 </resources>

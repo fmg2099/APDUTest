@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <host-apdu-service xmlns:android="http://schemas.android.com/apk/res/android"
-    android:description="Pruebas de APDU"
+    android:description="@string/host_apdu_service_description"
     android:requireDeviceUnlock="true">
-    <aid-group android:description="Pruebas de apdu"
+    <aid-group android:description="@string/aid_description"
         android:category="other">
-        <!-- usamos el AID de pruebas F2233445566 -->
-        <aid-filter android:name="F2233445566"/>
+        <!-- usamos el AID de pruebas F012345678-->
+        <aid-filter android:name="F012345678"/>
     </aid-group>
 </host-apdu-service>

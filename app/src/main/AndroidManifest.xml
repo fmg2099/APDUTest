@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.NFC" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <!--uses-feature solo tiene sentido para la play store,
     oculta la app a los dispositivos que no tienen HCE-->
     <uses-feature

@@ -17,13 +17,45 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/buttonAction"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Accion"
-        tools:layout_editor_absoluteX="161dp"
-        tools:layout_editor_absoluteY="406dp"
-        tools:text="Accion" />
+        android:gravity="center|center_vertical"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/photoView"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            app:srcCompat="@drawable/si_autorizo" />
+
+        <TextView
+            android:id="@+id/nameLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:text="Paco Pérez"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            tools:text="Paco Pérez" />
+
+        <Button
+            android:id="@+id/buttonCred1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Credencial A"
+            tools:text="Credencial A" />
+
+        <Button
+            android:id="@+id/buttonCred2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Credencial B" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

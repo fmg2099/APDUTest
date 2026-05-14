@@ -11,6 +11,8 @@ import android.nfc.cardemulation.HostApduService
 import android.os.Vibrator
 import android.util.Log
 import android.widget.Button
+import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 
@@ -82,7 +84,7 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
-        val labelStatus = findViewById<TextView>(R.id.label_info)
+        val labelStatus = findViewById<TextView>(R.id.debugInfo)
         val hasHCE = packageManager.hasSystemFeature(PackageManager.FEATURE_NFC_HOST_CARD_EMULATION)
         val nfcAdapter = NfcAdapter.getDefaultAdapter(this)
         val hasNFC = nfcAdapter != null
@@ -98,10 +100,6 @@ class MainActivity : AppCompatActivity() {
             //todo bien, continuar con la app
             else{
                 labelStatus.text = "todo bien "
-                //val intent = Intent(this, MyHostAPDUService::class.java)
-                //Toast.makeText(this, "apduservice intent created", Toast.LENGTH_SHORT).show()
-
-
             }
 
         }
@@ -122,7 +120,15 @@ class MainActivity : AppCompatActivity() {
             val id = byteArrayToInt(idbytes) as Int
             Log.d(TAG, "new ID: " + id.toString())
             prefs.edit().putInt( "ID", byteArrayToInt(idbytes)).apply()
-            labelStatus.text="Credencial A"
+
+            //cambiar contenidos
+            val layout = findViewById<LinearLayout>(R.id.linearLayout)
+            layout.setBackgroundResource(R.drawable.border_background_si)
+            val image = findViewById<ImageView>(R.id.photoView)
+            image.setImageResource(R.drawable.si_autorizo)
+            val labelName = findViewById<TextView>(R.id.nameLabel)
+            labelName.text = getString(R.string.cred1_name)
+
         }
 
         //boton con la credencial 2
@@ -142,7 +148,14 @@ class MainActivity : AppCompatActivity() {
             val id = byteArrayToInt(idbytes) as Int
             Log.d(TAG, "new ID: " + id.toString())
             prefs.edit().putInt("ID", byteArrayToInt(idbytes)).apply()
-            labelStatus.text = "Credencial B"
+
+            //cambiar contenidos
+            val layout = findViewById<LinearLayout>(R.id.linearLayout)
+            layout.setBackgroundResource(R.drawable.border_background_no)
+            val image = findViewById<ImageView>(R.id.photoView)
+            image.setImageResource(R.drawable.no_autorizo)
+            val labelName = findViewById<TextView>(R.id.nameLabel)
+            labelName.text = getString(R.string.cred2_name)
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->

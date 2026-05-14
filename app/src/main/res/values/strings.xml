@@ -4,5 +4,7 @@
     <string name="no_nfc">Este dispositivo no soporta NFC</string>
     <string name="host_apdu_service_description">APDU Service de pruebas</string>
     <string name="aid_description">AID de pruebas</string>
+    <string name="cred1_name">Paco Pérez</string>
+    <string name="cred2_name">Changuito"</string>
 
 </resources>

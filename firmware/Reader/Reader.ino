@@ -16,8 +16,9 @@ PN532 nfc(pn532spi);
 #elif 1
   #include <PN532_HSU.h>
   #include <PN532.h>
-      
-  PN532_HSU pn532hsu(Serial1);
+
+//En el Arduino Nano ESP32 los pines Rx y Tx corresponden al serial 0
+  PN532_HSU pn532hsu(Serial0);
   PN532 nfc(pn532hsu);
 #else 
   #include <Wire.h>
@@ -35,6 +36,7 @@ uint8_t Users[]={
 		0xBE, 0xBE, 0x20, 0x99
 };
 
+//funcion de ayuda para encender las luces RGB
 void rgb(bool R, bool G, bool B)
 {
 	//invertidos para arduino nano
@@ -54,6 +56,7 @@ void loadingscreen()
 	}
 }
 
+//Comparar bytes con la tabla de usuarios
 bool checkUser( uint8_t userId[USERID_LEN] )
 {
 	Serial.print("checkUser: ");
@@ -97,20 +100,20 @@ void setup(void) {
 	//nfc.begin llama a la interfaz begin y wakeup
 	//nfc.begin();
 	//inicializar para arduino nano esp32
-	Serial1.begin(115200, SERIAL_8N1, D2, D3);
+	Serial0.begin(115200);
 	//ahora el wakeup
-	Serial1.write(0x55);
-	Serial1.write(0x55);
-	Serial1.write(0);
-	Serial1.write(0);
-	Serial1.write(0);
-	if(Serial1.available())
+	Serial0.write(0x55);
+	Serial0.write(0x55);
+	Serial0.write(0);
+	Serial0.write(0);
+	Serial0.write(0);
+	if(Serial0.available())
 	{
 		Serial.println("Dump serial1 buffer: ");
 	}
-	while(Serial1.available())
+	while(Serial0.available())
 	{
-		uint8_t ret = Serial1.read();
+		uint8_t ret = Serial0.read();
         Serial.print(' '); Serial.print((ret>>4)&0x0F, HEX); Serial.print(ret&0x0F, HEX);
 	}
 	
